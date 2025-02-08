@@ -463,82 +463,84 @@ const NewPlaylistSlide = () => {
                     {
                       id: "#library",
                       content: (
-                        <div className="w-full h-full flex-1 flex flex-col overflow-hidden">
-                          {/* Search */}
-                          <div className="w-full text-sm font-medium text-gray-400 h-8 flex flex-row rounded border border-gray-300">
-                            <div className="w-9 h-full flex items-center justify-center border-r border-gray-300">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="20px"
-                                viewBox="0 -960 960 960"
-                                width="20px"
-                                fill="#333"
-                              >
-                                <path d="M762.69-160.92 524.46-399.16q-30 22.77-65.79 35.27-35.79 12.5-73.87 12.5-93.58 0-159.11-65.51-65.53-65.51-65.53-159.04 0-93.52 65.51-159.1 65.51-65.57 159.04-65.57 93.52 0 159.1 65.53 65.57 65.53 65.57 159.11 0 39.23-12.88 75.02-12.89 35.8-34.89 64.64l238.23 238.23-37.15 37.16ZM384.77-403.38q72.31 0 122.46-50.16 50.16-50.15 50.16-122.46t-50.16-122.46q-50.15-50.16-122.46-50.16t-122.46 50.16Q212.15-648.31 212.15-576t50.16 122.46q50.15 50.16 122.46 50.16Z" />
-                              </svg>
-                            </div>
-                            {/* Input */}
-                            <input
-                              className="w-40 h-full bg-transparent px-3 border-r border-gray-300"
-                              placeholder="Rechercher dans ma"
-                              value={filterSongKeyword}
-                              onChange={(e) =>
-                                setFilterSongKeyword(e.target.value)
-                              }
-                            />
-                            {/* All tags */}
-                            <select
-                              className="flex-1 h-full px-3 bg-transparent"
-                              onChange={(e) =>
-                                setFilterSongTag(Number(e.target.value))
-                              }
-                            >
-                              <option>Tous les tags</option>
-                              {tags.map((tag) => (
-                                <option key={tag.id} value={tag.id}>
-                                  {tag.name}
-                                </option>
-                              ))}
-                            </select>
-                            {/* Setting */}
-                            <a
-                              className="w-9 h-full flex items-center justify-center bg-gray-200 cursor-pointer"
-                              onClick={() => openModal("add-tag")}
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="20px"
-                                viewBox="0 -960 960 960"
-                                width="20px"
-                                fill="#333"
-                              >
-                                <path d="m420.69-116-21.23-107.85q-26.07-9.38-52.96-24.07-26.88-14.7-48.19-33.77L194.46-247l-59.3-103 81.61-71.77q-2.38-13.92-3.96-28.42-1.58-14.5-1.58-29.43 0-14.53 1.58-28.84t3.96-29.77L135.16-610l59.3-102.23 103.46 34.31q22.47-19.46 48.39-33.96t52.77-24.27L420.69-844h118.62l21.23 108.23q28 10.54 52.57 24.27 24.58 13.73 47.43 33.58l105-34.31L824.84-610l-83.15 72.92q3.15 14.69 4.35 28.62 1.19 13.92 1.19 28.46 0 14.15-1.39 28.08-1.38 13.92-3.76 29.77L824.46-350l-59.31 103-104.61-35.08q-22.85 19.85-47.81 33.96-24.96 14.12-52.19 23.89L539.31-116H420.69ZM462-168h35.62L517-268.15q37.62-7 69.46-25.23 31.85-18.24 57.39-48.39L740.23-309l18.39-30-76.77-67.38q6-18.54 9.3-36.47 3.31-17.92 3.31-37.15 0-19.62-3.31-37.15-3.3-17.54-9.3-35.7L759.38-621 741-651l-97.54 32.38q-22.08-27.46-56.61-47.42-34.54-19.96-70.23-25.81L498-792h-36.38l-18.24 99.77q-37.61 6.23-70.03 24.65-32.43 18.43-57.97 48.96L219-651l-18.38 30L277-553.62q-6 16.24-9.5 35.12t-3.5 38.88q0 19.62 3.5 38.12 3.5 18.5 9.12 35.12l-76 67.38L219-309l96-32q24.77 29.38 57.19 47.81 32.43 18.42 70.81 25.42L462-168Zm16.46-188q51.92 0 87.96-36.04 36.04-36.04 36.04-87.96 0-51.92-36.04-87.96Q530.38-604 478.46-604q-51.54 0-87.77 36.04T354.46-480q0 51.92 36.23 87.96Q426.92-356 478.46-356ZM480-480Z" />
-                              </svg>
-                            </a>
-                          </div>
-
-                          {/* Songs list */}
-                          <div
-                            className="flex-1 flex flex-col gap-1 pt-2"
-                            onDrop={handleAddedSongDrop}
-                            onDragOver={(e) => {
-                              e.preventDefault();
-                            }}
-                            onDragLeave={() => {}}
-                          >
-                            {filteredSongs.map((song) => (
-                              <Song
-                                key={song.id}
-                                song={song}
-                                added={false}
-                                isSelected={findPlaylistSong(song)}
+                        <div className="w-full h-full overflow-auto p-2">
+                          <div className="flex-1 flex flex-col overflow-hidden">
+                            {/* Search */}
+                            <div className="w-full text-sm font-medium text-gray-400 h-8 flex flex-row rounded border border-gray-300">
+                              <div className="w-9 h-full flex items-center justify-center border-r border-gray-300">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  height="20px"
+                                  viewBox="0 -960 960 960"
+                                  width="20px"
+                                  fill="#333"
+                                >
+                                  <path d="M762.69-160.92 524.46-399.16q-30 22.77-65.79 35.27-35.79 12.5-73.87 12.5-93.58 0-159.11-65.51-65.53-65.51-65.53-159.04 0-93.52 65.51-159.1 65.51-65.57 159.04-65.57 93.52 0 159.1 65.53 65.57 65.53 65.57 159.11 0 39.23-12.88 75.02-12.89 35.8-34.89 64.64l238.23 238.23-37.15 37.16ZM384.77-403.38q72.31 0 122.46-50.16 50.16-50.15 50.16-122.46t-50.16-122.46q-50.15-50.16-122.46-50.16t-122.46 50.16Q212.15-648.31 212.15-576t50.16 122.46q50.15 50.16 122.46 50.16Z" />
+                                </svg>
+                              </div>
+                              {/* Input */}
+                              <input
+                                className="w-40 h-full bg-transparent px-3 border-r border-gray-300"
+                                placeholder="Rechercher dans ma"
+                                value={filterSongKeyword}
                                 onChange={(e) =>
-                                  e
-                                    ? addPlaylistSong(song)
-                                    : removePlaylistSong(song)
+                                  setFilterSongKeyword(e.target.value)
                                 }
                               />
-                            ))}
+                              {/* All tags */}
+                              <select
+                                className="flex-1 h-full px-3 bg-transparent"
+                                onChange={(e) =>
+                                  setFilterSongTag(Number(e.target.value))
+                                }
+                              >
+                                <option>Tous les tags</option>
+                                {tags.map((tag) => (
+                                  <option key={tag.id} value={tag.id}>
+                                    {tag.name}
+                                  </option>
+                                ))}
+                              </select>
+                              {/* Setting */}
+                              <a
+                                className="w-9 h-full flex items-center justify-center bg-gray-200 cursor-pointer"
+                                onClick={() => openModal("add-tag")}
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  height="20px"
+                                  viewBox="0 -960 960 960"
+                                  width="20px"
+                                  fill="#333"
+                                >
+                                  <path d="m420.69-116-21.23-107.85q-26.07-9.38-52.96-24.07-26.88-14.7-48.19-33.77L194.46-247l-59.3-103 81.61-71.77q-2.38-13.92-3.96-28.42-1.58-14.5-1.58-29.43 0-14.53 1.58-28.84t3.96-29.77L135.16-610l59.3-102.23 103.46 34.31q22.47-19.46 48.39-33.96t52.77-24.27L420.69-844h118.62l21.23 108.23q28 10.54 52.57 24.27 24.58 13.73 47.43 33.58l105-34.31L824.84-610l-83.15 72.92q3.15 14.69 4.35 28.62 1.19 13.92 1.19 28.46 0 14.15-1.39 28.08-1.38 13.92-3.76 29.77L824.46-350l-59.31 103-104.61-35.08q-22.85 19.85-47.81 33.96-24.96 14.12-52.19 23.89L539.31-116H420.69ZM462-168h35.62L517-268.15q37.62-7 69.46-25.23 31.85-18.24 57.39-48.39L740.23-309l18.39-30-76.77-67.38q6-18.54 9.3-36.47 3.31-17.92 3.31-37.15 0-19.62-3.31-37.15-3.3-17.54-9.3-35.7L759.38-621 741-651l-97.54 32.38q-22.08-27.46-56.61-47.42-34.54-19.96-70.23-25.81L498-792h-36.38l-18.24 99.77q-37.61 6.23-70.03 24.65-32.43 18.43-57.97 48.96L219-651l-18.38 30L277-553.62q-6 16.24-9.5 35.12t-3.5 38.88q0 19.62 3.5 38.12 3.5 18.5 9.12 35.12l-76 67.38L219-309l96-32q24.77 29.38 57.19 47.81 32.43 18.42 70.81 25.42L462-168Zm16.46-188q51.92 0 87.96-36.04 36.04-36.04 36.04-87.96 0-51.92-36.04-87.96Q530.38-604 478.46-604q-51.54 0-87.77 36.04T354.46-480q0 51.92 36.23 87.96Q426.92-356 478.46-356ZM480-480Z" />
+                                </svg>
+                              </a>
+                            </div>
+
+                            {/* Songs list */}
+                            <div
+                              className="flex-1 flex flex-col gap-1 pt-2"
+                              onDrop={handleAddedSongDrop}
+                              onDragOver={(e) => {
+                                e.preventDefault();
+                              }}
+                              onDragLeave={() => {}}
+                            >
+                              {filteredSongs.map((song) => (
+                                <Song
+                                  key={song.id}
+                                  song={song}
+                                  added={false}
+                                  isSelected={findPlaylistSong(song)}
+                                  onChange={(e) =>
+                                    e
+                                      ? addPlaylistSong(song)
+                                      : removePlaylistSong(song)
+                                  }
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
                       ),
