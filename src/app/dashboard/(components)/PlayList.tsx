@@ -50,7 +50,6 @@ const PlayList = ({ playlist, selected, repartition }: DashboardPlaylist) => {
    */
   useEffect(() => {
     const handleEnded = () => {
-      console.log("next");
       // Update the current song index
       setCurrentSongIndex((prevIndex) =>
         playlist.songs && prevIndex >= playlist.songs.length - 1

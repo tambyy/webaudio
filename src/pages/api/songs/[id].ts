@@ -9,21 +9,21 @@ export default async function handler(
 ) {
   if (req.method === "PUT") {
     // Update song
-    const { id, name, singer, tags } = req.body;
-
-    console.log(req.body);
-
-    if (!id) {
-      return res.status(400).json({ error: "ID is required" });
-    }
-
     try {
+      const { id } = req.query;
+
+      if (!id || isNaN(Number(id))) {
+        return res.status(400).json({ error: "Invalid ID" });
+      }
+
+      const { name, singer, tags } = req.body;
+
       const updateData: Record<string, any> = {};
       if (name) updateData.name = name;
       if (singer) updateData.singer = singer;
 
       let updatedSong = await prisma.song.update({
-        where: { id },
+        where: { id: Number(id) },
         data: updateData, // Only includes filled fields
       });
 
@@ -40,7 +40,7 @@ export default async function handler(
       res.status(200).json(updatedSong);
     } catch (error) {
       console.error("Update failed:", error);
-      res.status(500).json({ error: "Error updating user" });
+      res.status(500).json({ error: "Error updating song" });
     }
   }
 

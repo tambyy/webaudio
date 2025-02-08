@@ -24,15 +24,47 @@ const addTag = async (tag) => {
 };
 
 /**
+ * Remove tag
+ * @param tag
+ * @returns
+ */
+const removeTag = async (tag) => {
+  const response = await fetch(`/api/tags/${tag.id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete tag item");
+  }
+
+  return response.json();
+};
+
+/**
  * Tag component
  * @param param0
  * @returns
  */
 const Tag = ({ tag }: { tag: TagType }) => {
+  /**
+   * Remove tag mutation
+   */
+  const queryClient = useQueryClient();
+  const removeTagMutation = useMutation({
+    mutationFn: removeTag,
+    // Refresh the tags list
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tags"]);
+    },
+  });
+
   return (
     <div
-      className="flex flex-row h-6 px-2 items-center rounded gap-1"
+      className="flex flex-row h-6 px-2 items-center rounded gap-1 cursor-pointer"
       style={{ backgroundColor: tag.bgcolor, color: tag.color }}
+      onClick={() => {
+        removeTagMutation.mutate(tag);
+      }}
     >
       <span className="text-xs">{tag.name}</span>
       <span>&times;</span>
@@ -97,7 +129,7 @@ const NewTagModal = () => {
   const queryClient = useQueryClient();
   const addTagMutation = useMutation({
     mutationFn: addTag,
-    // Refresh the songs list
+    // Refresh the tags list
     onSuccess: () => {
       queryClient.invalidateQueries(["tags"]);
     },
@@ -108,7 +140,6 @@ const NewTagModal = () => {
    */
   const handleTagAdd = (e) => {
     e.preventDefault();
-    console.log(newTag);
 
     if (!newTag.name) {
       return;

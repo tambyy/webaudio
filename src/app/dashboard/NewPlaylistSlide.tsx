@@ -114,7 +114,9 @@ const NewPlaylistSlide = () => {
    */
   const filteredSongs = songs.filter(
     (song) =>
-      song.name.toLowerCase().includes(filterSongKeyword.toLowerCase()) &&
+      `${song.singer} ${song.name}`
+        .toLowerCase()
+        .includes(filterSongKeyword.toLowerCase()) &&
       (!filterSongTag || song.tags?.find((t) => t.id == filterSongTag))
   );
 
@@ -385,7 +387,7 @@ const NewPlaylistSlide = () => {
                       ))}
                     </select>
                     {/* Setting */}
-                    <div className="w-9 h-full flex items-center justify-center bg-gray-200">
+                    <div className="w-9 h-full flex items-center justify-center bg-gray-200 cursor-pointer">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         height="20px"
@@ -452,7 +454,7 @@ const NewPlaylistSlide = () => {
                       </select>
                       {/* Setting */}
                       <a
-                        className="w-9 h-full flex items-center justify-center bg-gray-200"
+                        className="w-9 h-full flex items-center justify-center bg-gray-200 cursor-pointer"
                         onClick={() => openModal("add-tag")}
                       >
                         <svg

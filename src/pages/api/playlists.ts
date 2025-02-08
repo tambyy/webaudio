@@ -56,8 +56,6 @@ export default async function handler(
             data: { name, color, cover },
           });
 
-          console.log(newPlaylist);
-
           // Attach selected songs to the new playlist
           const updatedPlaylist = await prisma.playlist.update({
             where: { id: Number(newPlaylist.id) },

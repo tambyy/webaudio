@@ -46,7 +46,7 @@ And change the following variables to match your environment:
 DATABASE_URL="mysql://my_user:my_password@localhost:3307/my_database_name?schema=public"
 
 # Create and get an API Key
-# from https://imagepig.com/account/settings/
+# from [https://imagepig.com/account/settings/](https://imagepig.com/account/settings/)
 # used to generate playlists cover using AI
 NEXT_PUBLIC_NEXT_IMAGEPIG_API_KEY=
 ```

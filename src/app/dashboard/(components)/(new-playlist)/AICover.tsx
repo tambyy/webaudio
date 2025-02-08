@@ -35,7 +35,6 @@ const AICover = ({ playlist, onLoaded }) => {
     }
 
     try {
-      console.log("loading ...");
       const response = await fetch("https://api.imagepig.com/", {
         method: "POST",
         headers: {

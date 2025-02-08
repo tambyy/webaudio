@@ -14,9 +14,8 @@ export default async function handler(
   }
 
   if (req.method === "POST") {
-    // ✅ req.body should work now
+    // Add new tag
     const { name, color, bgcolor } = req.body;
-    console.log({ name, color, bgcolor });
 
     if (!name || !color || !bgcolor) {
       return res.status(400).json({ error: "Missing required fields" });

@@ -12,11 +12,10 @@ import Song from "@/types/song";
  * @returns
  */
 const updateSong = async (song: Song) => {
-  const response = await fetch("/api/songs/update", {
+  const response = await fetch(`/api/songs/${song.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      id: song.id,
       name: song.name,
       singer: song.singer,
       tags: song.tags ? song.tags.map((tag) => tag.id) : [],
