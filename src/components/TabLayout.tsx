@@ -22,7 +22,7 @@ function TabLayout({ tab, tabs }: { tab: number; tabs: Tab[] }) {
           <div
             key={tab.id}
             style={{ width: 100 / tabs.length + "%" }}
-            className="flex-1 font-xs inline-block max-h-full overflow-hidden whitespace-normal"
+            className="flex-1 text-sm inline-block max-h-full overflow-hidden whitespace-normal"
           >
             <div className="w-full h-full align-top">{tab.content}</div>
           </div>
