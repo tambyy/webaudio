@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  name      String
+  email     String @unique
+  createdAt DateTime @default(now())
+  songs     Song[]
+  playlists Playlist[]
+}
+
+model Tag {
+  id        Int     @id @default(autoincrement())
+  name      String
+  color     String
+  bgcolor   String
+  createdAt DateTime @default(now())
+  songs     Song[] @relation("SongTag")
+  playlists Playlist[] @relation("PlaylistTag")
+}
+
+model Song {
+  id        Int     @id @default(autoincrement())
+  name      String
+  path      String
+  singer    String
+  duration  Int
+  userId    Int?
+  createdAt DateTime @default(now())
+  playlists Playlist[] @relation("PlaylistSong")
+  tags      Tag[] @relation("SongTag")
+  user      User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Playlist {
+  id        Int     @id @default(autoincrement())
+  name      String
+  cover     String?
+  color     String
+  userId    Int?
+  createdAt DateTime @default(now())
+  songs     Song[] @relation("PlaylistSong")
+  tags      Tag[] @relation("PlaylistTag")
+  user      User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
