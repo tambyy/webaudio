@@ -37,8 +37,15 @@ npm install
 
 ### 3️⃣ Setup Environment Variables
 
-Copy the `.env.example` file from the root,
-rename it to `.env`
+Copy the `.env.example` file from the root to `.env`
+
+```sh
+# Windows
+copy .env.example .env
+# Linux
+cp .env.example .env
+```
+
 And change the following variables to match your environment:
 
 ```env
@@ -56,12 +63,6 @@ NEXT_PUBLIC_NEXT_IMAGEPIG_API_KEY=
 ---
 
 ## 📜 Prisma Setup
-
-### 4️⃣ Initialize Prisma
-
-```sh
-npx prisma init
-```
 
 ### 5️⃣ Migrate Database
 
