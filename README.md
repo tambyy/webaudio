@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Webaudio Project
 
-## Getting Started
+This is a full-stack web application built using **Next.js** and **Prisma** ORM.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js** with App Router
+- **Prisma ORM** for database access
+- **MySQL** as database
+- **API Routes** with Next.js
+- **TypeScript**
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js, React, Tailwind CSS, Tanstack react-query, Zustand
+- **Backend:** API Routes, Prisma (ORM), Multer (File upload)
+- **Database:** MySQL
+
+---
+
+## 📦 Installation & Setup
+
+### 1️⃣ Clone the Repository
+
+```sh
+git https://github.com/tambyy/webaudio.git
+cd webaudio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2️⃣ Install Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3️⃣ Setup Environment Variables
 
-## Learn More
+Copy the `.env.example` file from the root,
+rename it to `.env`
+And change the following variables to match your environment:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+# Change the database infos
+DATABASE_URL="mysql://my_user:my_password@localhost:3307/my_database_name?schema=public"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Create and get an API Key
+# from https://imagepig.com/account/settings/
+# used to generate playlists cover using AI
+NEXT_PUBLIC_NEXT_IMAGEPIG_API_KEY=
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+> Modify the `DATABASE_URL` based on your database provider (MySQL).
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📜 Prisma Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4️⃣ Initialize Prisma
+
+```sh
+npx prisma init
+```
+
+### 5️⃣ Migrate Database
+
+```sh
+npx prisma migrate dev --name init
+```
+
+### 6️⃣ Generate Prisma Client
+
+```sh
+npx prisma generate
+```
+
+---
+
+## 🚀 Run the Project
+
+### 7️⃣ Start the Development Server
+
+```sh
+npm run dev
+```
+
+The app will be running at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## 📂 Project Structure
+
+```
+📦 your-repo
+├── 📁 prisma         # Prisma schema & migrations
+├── 📁 public         # Public files
+    ├── 📁 covers     # Playlists covers files
+    ├── 📁 songs      # Songs files
+├── 📁 src            # Project source code
+    ├── 📁 app        #
+    ├── 📁 components # Common components
+    ├── 📁 constants  # Constant variables for test
+    ├── 📁 hooks      # React hooks
+    ├── 📁 pages      # Next js routes
+        ├── 📁 api    # Next js api routes
+    ├── 📁 stores     # Zustand store
+    ├── 📁 types      # Variable types
+├── 📄 .env           # Environment variables
+├── 📄 next.config.js # Next.js configuration
+├── 📄 package.json   # Dependencies
+└── 📄 README.md      # Documentation
+```
+
+---
+
+## 🔧 Useful Commands
+
+| Command                              | Description                  |
+| ------------------------------------ | ---------------------------- |
+| `npm run dev`                        | Run development server       |
+| `npm run build`                      | Build the app for production |
+| `npm start`                          | Start production server      |
+| `npx prisma migrate dev --name init` | Run Prisma migrations        |
+
+---
+
+### ✨ **Thanks 🚀**
